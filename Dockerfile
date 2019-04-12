@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure locales/ language/ timezone
-RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
-    && \dpkg-reconfigure --frontend=noninteractive locales \
-    && \update-locale LANG=de_DE.UTF-8
-RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+# RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
+#     && \dpkg-reconfigure --frontend=noninteractive locales \
+#     && \update-locale LANG=de_DE.UTF-8
+# RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 #nodejs installation
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
