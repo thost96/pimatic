@@ -2,14 +2,15 @@ FROM debian
 
 LABEL maintainer="info@thorstenreichelt.de"
 
+# preparation
+RUN apt-get install -y curl build-essential git wget
+
 #nodejs installation
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 RUN /usr/bin/env node --version
 
 # pimatic installaton
-RUN apt-get install -y build-essential git wget
-
 RUN mkdir /pimatic-app
 RUN npm install pimatic@latest --prefix pimatic-app --production
 RUN cp /pimatic-app/node_modules/pimatic/config_default.json /pimatic-app/config.json 
