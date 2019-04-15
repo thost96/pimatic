@@ -39,15 +39,15 @@ RUN chown root:root /etc/init.d/pimatic
 RUN update-rc.d pimatic defaults
 
 # adding plugins
-# WORKDIR /pimatic-app
-# RUN npm install pimatic-shell-execute
-# RUN npm install pimatic-homeduino
+WORKDIR /pimatic-app
+RUN npm install pimatic-shell-execute
+RUN npm install pimatic-homeduino
 
 # cleaning up
 RUN rm -rf /pimatic-init-d
 
 # start pimatic service
-CMD  service pimatic start 
+CMD  pimatic.js start 
 
 # expose port
 EXPOSE 80
