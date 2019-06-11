@@ -26,7 +26,7 @@ COPY config_default.json /pimatic-app/config.json
 RUN touch /pimatic-app/pimatic-daemon.log
 
 ### Service start and tail logfile
-ENTRYPOINT cd /home/pimatic-app && pimatic.js start && tail -f pimatic-daemon.log
+ENTRYPOINT cd /pimatic-app && pimatic.js start && tail -f pimatic-daemon.log
 
 ### Expose port 80
 EXPOSE 80
