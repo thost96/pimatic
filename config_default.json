@@ -1,0 +1,125 @@
+{
+  "settings": {
+    "httpServer": {
+      "enabled": true,
+      "port": 80
+    },
+    "database": {
+      "deviceAttributeLogging": [
+        {
+          "deviceId": "*",
+          "attributeName": "*",
+          "type": "*",
+          "interval": "0",
+          "expire": "7d"
+        },
+        {
+          "deviceId": "*",
+          "attributeName": "*",
+          "type": "continuous",
+          "interval": "5min",
+          "expire": "7d"
+        },
+        {
+          "deviceId": "*",
+          "attributeName": "temperature",
+          "type": "number",
+          "expire": "1y"
+        },
+        {
+          "deviceId": "*",
+          "attributeName": "humidity",
+          "type": "number",
+          "expire": "1y"
+        }
+      ],
+      "messageLogging": [
+        {
+          "level": "*",
+          "tags": [],
+          "expire": "7d"
+        },
+        {
+          "level": "debug",
+          "tags": [],
+          "expire": "0"
+        }
+      ]
+    },
+    "authentication": {
+      "secret": "upgvGBgkgMjw5nJjXdujidl8OYG+EgVdK/Zqa6Rg/Y42Z1qyT9Rh86Ti8SJr2D3                                                                                                              re8FrhGlsV0nUOrgRScGxdQ=="
+    },
+    "httpsServer": {},
+    "cors": {},
+    "gui": {}
+  },
+  "plugins": [
+    {
+      "plugin": "cron"
+    },
+    {
+      "plugin": "mobile-frontend"
+    },
+    {
+      "plugin": "sysinfo"
+    },
+    {
+      "plugin": "gpio",
+      "active": false
+    },
+    {
+      "driverOptions": {
+        "serialDevice": "/dev/ttyUSB0",
+        "baudrate": 115200
+      },
+      "plugin": "homeduino",
+      "active": false
+    },
+    {
+      "plugin": "lcd",
+      "active": false
+    },
+    {
+      "plugin": "shell-execute",
+      "active": true
+    }
+  ],
+  "devices": [],
+  "rules": [],
+  "pages": [
+    {
+      "id": "favourite",
+      "name": "Favourites",
+      "devices": []
+    }
+  ],
+  "groups": [],
+  "users": [
+    {
+      "username": "admin",
+      "password": "password",
+      "role": "admin"
+    }
+  ],
+  "roles": [
+    {
+      "name": "admin",
+      "permissions": {
+        "pages": "write",
+        "rules": "write",
+        "variables": "write",
+        "messages": "write",
+        "events": "write",
+        "devices": "write",
+        "groups": "write",
+        "plugins": "write",
+        "updates": "write",
+        "database": "write",
+        "config": "write",
+        "controlDevices": true,
+        "restart": true
+      }
+    }
+  ],
+  "variables": []
+}
