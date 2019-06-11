@@ -3,12 +3,9 @@ FROM node:4
 LABEL maintainer="info@thorstenreichelt.de"
 
 ### Preparation
-RUN apt-get update && apt-get install -y \
-  curl \
-  build-essential \
-  git \
-  wget \
-  && rm -rf /var/lib/apt/lists/*
+# RUN  apt install -y \
+#  build-essentials \
+#  && rm -rf /var/lib/apt/lists/*
 
 # Configure locales/ language/ timezone
 # RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
