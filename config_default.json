@@ -47,7 +47,7 @@
       ]
     },
     "authentication": {
-      "secret": "upgvGBgkgMjw5nJjXdujidl8OYG+EgVdK/Zqa6Rg/Y42Z1qyT9Rh86Ti8SJr2D3                                                                                                              re8FrhGlsV0nUOrgRScGxdQ=="
+      "secret": ""
     },
     "httpsServer": {},
     "cors": {},
@@ -84,13 +84,73 @@
       "active": true
     }
   ],
-  "devices": [],
-  "rules": [],
+  "devices": [
+    {
+      "buttons": [
+        {
+          "id": "pimatic-control-restart",
+          "text": "Neustart"
+        },
+        {
+          "id": "pimatic-control-shutdown",
+          "text": "Herunterfahren"
+        }
+      ],
+      "id": "pimatic-control",
+      "name": "Pimatic Steuerung",
+      "class": "ButtonsDevice"
+    },
+    {
+      "attributeName": "version",
+      "attributeType": "string",
+      "command": "cat /pimatic-app/node_modules/pimatic/package.json ",
+      "interval": 60000,
+      "id": "pimatic-version",
+      "name": "Pimatic Version",
+      "class": "ShellSensor"
+    },
+    {
+      "attributeName": "speed",
+      "attributeType": "string",
+      "command": "cat /sys/class/net/eth0/speed",
+      "interval": 60000,
+      "id": "network-speed",
+      "name": "Network Speed",
+      "class": "ShellSensor",
+      "attributeUnit": "Mb/s"
+    }
+  ],
+  "rules": [
+    {
+      "id": "pimatic-control-restart",
+      "name": "pimatic-control-restart",
+      "rule": "when pimatic-control-restart is pressed then execute \"sudo reboot\"",
+      "active": true,
+      "logging": true
+    },
+    {
+      "id": "pimatic-control-shutdown",
+      "name": "pimatic-control-shutdown",
+      "rule": "when pimatic-control-shutdown is pressed then execute \"sudo shutdown -h -t now\"",
+      "active": true,
+      "logging": true
+    }
+  ],
   "pages": [
     {
       "id": "favourite",
       "name": "Favourites",
-      "devices": []
+      "devices": [
+        {
+          "deviceId": "pimatic-control"
+        },
+        {
+          "deviceId": "pimatic-version"
+        },
+        {
+          "deviceId": "network-speed"
+        }
+      ]
     }
   ],
   "groups": [],
