@@ -12,17 +12,18 @@ RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
     && \update-locale LANG=de_DE.UTF-8
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
+WORKDIR /
 RUN mkdir /pimatic-app
-RUN /usr/bin/env node --version
-RUN cd / && npm install pimatic@latest --prefix pimatic-app --production
+RUN npm install pimatic@latest --prefix pimatic-app --production
 
-RUN cd /pimatic-app/node_modules/pimatic && npm link
+RUN touch /pimatic-app/pimatic-daemon.log && ln -sf /dev/stdout /pimatic-app/pimatic-daemon.log
 
 COPY config_default.json /pimatic-app/config.json
-RUN touch /pimatic-app/pimatic-daemon.log
-
-ENTRYPOINT cd /pimatic-app && pimatic.js start && tail -f pimatic-daemon.log
 
 USER pimatic
 EXPOSE 80
 VOLUME ["/pimatic-app"]
+
+ENTRYPOINT ["node", "/pimatic-app/pimatic.js start"]
+
+
