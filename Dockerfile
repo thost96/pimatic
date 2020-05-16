@@ -3,8 +3,8 @@ FROM node:14-slim
 LABEL maintainer="info@thorstenreichelt.de"
 
 RUN  apt-get update -qq && apt-get install -y -qq --no-install-recommends \
-	locales=2.28-10 \
-        tzdata=2020a-0+deb10u1 \
+	locales=2.24-11+deb9u4 \
+	tzdata=2019c-0+deb9u1 \
 	build-essential \
 	&& rm -rf /var/lib/apt/lists/*
 
