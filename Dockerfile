@@ -1,20 +1,28 @@
-FROM node:14-slim
+ARG BASEIMAGE=node:14-slim
+# hadolint ignore=DL3006
+FROM ${BASEIMAGE}
+
+ARG LOCALES_VERSION="2.24-11+deb9u4" 
+ARG TZDATA_VERSION="2019c-0+deb9u1" 
 
 LABEL maintainer="info@thorstenreichelt.de"
 
-RUN  apt-get update -qq && apt-get install -y -qq --no-install-recommends \
-	locales=2.24-11+deb9u4 \
-	tzdata=2019c-0+deb9u1 \
-	build-essential \
-	&& rm -rf /var/lib/apt/lists/*
-
-RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
+RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
+    locales=${LOCALES_VERSION} \      
+    tzdata=${TZDATA_VERSION} \
+    build-essential \
+    && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
     && \dpkg-reconfigure --frontend=noninteractive locales \
-    && \update-locale LANG=de_DE.UTF-8
-RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+    && \update-locale LANG=de_DE.UTF-8 \
+    && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+    && apt-get autoremove -y \    
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG="de_DE.UTF-8" \
     TZ="Europe/Berlin"
+
+RUN groupadd pimatic \
+	&& useradd -g pimatic -d /pimatic-app pimatic 
 
 WORKDIR /
 RUN mkdir /pimatic-app
