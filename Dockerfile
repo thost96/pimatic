@@ -28,7 +28,8 @@ RUN groupadd pimatic \
 
 WORKDIR /
 RUN mkdir /pimatic-app
-RUN npm install pimatic@0.9.54 --prefix pimatic-app --production
+ARG PIMATIC_VERSION="0.9.54" 
+RUN npm install pimatic@${PIMATIC_VERSION} --prefix pimatic-app --production
 
 RUN touch /pimatic-app/pimatic-daemon.log && ln -sf /dev/stdout /pimatic-app/pimatic-daemon.log
 
