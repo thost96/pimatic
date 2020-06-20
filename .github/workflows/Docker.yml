@@ -1,0 +1,81 @@
+name: Docker Image CI
+
+on:
+  push:
+    paths-ignore: 
+      - "README.md"
+    branches:
+    - master
+  schedule:
+    - cron:  "0 0 * * 0"
+  pull_request:
+    paths-ignore: 
+      - "README.md"
+    branches:
+    - master
+      
+
+jobs:
+  
+  build:
+    name: Pimatic on ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:        
+        include:
+          - version: node-10
+            os: node:10-slim
+            tag: node-10
+            locales: 2.31-0ubuntu9
+            tzdata: 2019c-3ubuntu1
+          
+          - version: node-12
+            os: node:12-slim
+            tag: node-12
+            locales: 2.31-0ubuntu9
+            tzdata: 2019c-3ubuntu1
+       
+          - version: node-14
+            os: node:14-slim
+            tag: node-14, latest
+            locales: 2.31-0ubuntu9
+            tzdata: 2019c-3ubuntu1
+          
+    steps:
+      - uses: actions/checkout@v1
+      
+      - uses: docker/build-push-action@v1
+        env:
+          DOCKER_BUILDKIT: "1"
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          add_git_labels: true
+          repository: thost96/pimatic
+          tags: ${{ matrix.tag }}
+          build_args: BASEIMAGE=${{matrix.os}},LOCALES_VERSION=${{matrix.locales}},TZDATA_VERSION=${{matrix.tzdata}}
+
+  lint:
+    name: Lint Dockerfile
+    runs-on: ubuntu-latest         
+    steps:
+      - uses: actions/checkout@v1
+      - uses: brpaz/hadolint-action@master
+  
+  securitycheck:
+     name: Scan for Vuls 
+     runs-on: ubuntu-latest
+     strategy:
+      fail-fast: false
+      matrix:
+        tags: [latest, node-10, node-12, node-14]
+     steps:
+        - name: Login to DockerHub Registry
+          run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        - name: Pull docker image
+          run: docker pull ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
+        - name: Trivy Action
+          uses: homoluctus/gitrivy@v2  
+          with:
+            image: ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
