@@ -24,13 +24,14 @@ jobs:
       fail-fast: false
       matrix:      
         include:
-          - pimatic: 0.9.54  
+          
           - version: node-10
             os: node:10-slim
             tag: node-10
             locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
             build: 12.3
+            pimatic: 0.9.54
           
           - version: node-12
             os: node:12-slim
@@ -38,14 +39,16 @@ jobs:
             locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
             build: 12.3
-       
+            pimatic: 0.9.54
+            
           - version: node-14
             os: node:14-slim
             tag: node-14, latest
             locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
             build: 12.3
-          
+            pimatic: 0.9.54
+
     steps:
       - uses: actions/checkout@v1
       
