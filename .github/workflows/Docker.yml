@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:    
-        pimatic: [0.9.54]    
+      matrix:      
         include:
+          - pimatic: 0.9.54  
           - version: node-10
             os: node:10-slim
             tag: node-10
