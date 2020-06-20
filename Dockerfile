@@ -4,15 +4,15 @@ FROM ${BASEIMAGE}
 
 ARG LOCALES_VERSION="2.24-11+deb9u4" 
 ARG TZDATA_VERSION="2019c-0+deb9u1" 
+ARG BUILD_VERSION="12.3" 
 
 LABEL maintainer="info@thorstenreichelt.de"
 
-RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
-#    locales=${LOCALES_VERSION} \      
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+    locales=${LOCALES_VERSION} \      
 #    tzdata=${TZDATA_VERSION} \
-    locales \
     tzdata \
-    build-essential \
+    build-essential=${BUILD_VERSION} \
     && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
     && \dpkg-reconfigure --frontend=noninteractive locales \
     && \update-locale LANG=de_DE.UTF-8 \
@@ -28,7 +28,7 @@ RUN groupadd pimatic \
 
 WORKDIR /
 RUN mkdir /pimatic-app
-RUN npm install pimatic@latest --prefix pimatic-app --production
+RUN npm install pimatic@0.9.54 --prefix pimatic-app --production
 
 RUN touch /pimatic-app/pimatic-daemon.log && ln -sf /dev/stdout /pimatic-app/pimatic-daemon.log
 
