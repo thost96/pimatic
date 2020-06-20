@@ -18,29 +18,33 @@ on:
 jobs:
   
   build:
-    name: Pimatic on ${{ matrix.version }}
+    name: Pimatic ${{ matrix.pimatic }} on ${{ matrix.version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:        
+      matrix:    
+        pimatic: [0.9.54]    
         include:
           - version: node-10
             os: node:10-slim
             tag: node-10
-            locales: 2.31-0ubuntu9
+            locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
+            build: 12.3
           
           - version: node-12
             os: node:12-slim
             tag: node-12
-            locales: 2.31-0ubuntu9
+            locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
+            build: 12.3
        
           - version: node-14
             os: node:14-slim
             tag: node-14, latest
-            locales: 2.31-0ubuntu9
+            locales: 2.24-11+deb9u4
             tzdata: 2019c-3ubuntu1
+            build: 12.3
           
     steps:
       - uses: actions/checkout@v1
@@ -54,7 +58,7 @@ jobs:
           add_git_labels: true
           repository: thost96/pimatic
           tags: ${{ matrix.tag }}
-          build_args: BASEIMAGE=${{matrix.os}},LOCALES_VERSION=${{matrix.locales}},TZDATA_VERSION=${{matrix.tzdata}}
+          build_args: BASEIMAGE=${{matrix.os}},LOCALES_VERSION=${{matrix.locales}},TZDATA_VERSION=${{matrix.tzdata}},BUILD_VERSION=${{matrix.build}},PIMATIC_VERSION=${{matrix.pimatic}}
 
   lint:
     name: Lint Dockerfile
