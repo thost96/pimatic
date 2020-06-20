@@ -28,6 +28,11 @@ Docker container to run [PIMATIC](https://pimatic.org).
 
 ## Changelog
 
+### 1.2.1 (20.06.2020)
+* (thost96) - added github actions 
+* (thost96) - changed dockerfile for automated builds 
+* (thost96) - added pimatic user to dockerfile and improved setting locales and timezone
+
 ### 1.2.0 (20.06.2020)
 * (thost96) - changed changelog to global version 
 * (thost96) - added Dependabot v2 config file
