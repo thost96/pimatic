@@ -8,8 +8,10 @@ ARG TZDATA_VERSION="2019c-0+deb9u1"
 LABEL maintainer="info@thorstenreichelt.de"
 
 RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
-    locales=${LOCALES_VERSION} \      
-    tzdata=${TZDATA_VERSION} \
+#    locales=${LOCALES_VERSION} \      
+#    tzdata=${TZDATA_VERSION} \
+    locales \
+    tzdata \
     build-essential \
     && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
     && \dpkg-reconfigure --frontend=noninteractive locales \
