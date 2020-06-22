@@ -86,3 +86,4 @@ jobs:
           uses: homoluctus/gitrivy@v2  
           with:
             image: ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
+            token: ${{ secrets.GITHUB_TOKEN }}
