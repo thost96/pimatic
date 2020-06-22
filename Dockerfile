@@ -7,7 +7,7 @@ ARG TZDATA_VERSION="2019c-0+deb9u1"
 ARG BUILD_VERSION="12.3" 
 
 LABEL maintainer="info@thorstenreichelt.de"
-
+# hadolint ignore=DL3008
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     locales=${LOCALES_VERSION} \      
 #    tzdata=${TZDATA_VERSION} \
