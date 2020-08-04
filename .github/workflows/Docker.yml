@@ -83,7 +83,8 @@ jobs:
         - name: Pull docker image
           run: docker pull ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
         - name: Trivy Action
-          uses: homoluctus/gitrivy@v2  
+          uses: homoluctus/gitrivy@v2
+          issue: false
           with:
             image: ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
             token: ${{ secrets.GITHUB_TOKEN }}
