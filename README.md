@@ -28,6 +28,9 @@ Docker container to run [PIMATIC](https://pimatic.org).
 
 ## Changelog
 
+### 1.2.2 (27.08.2020)
+* (thost96) - added Snyk security check to github actions 
+
 ### 1.2.1 (20.06.2020)
 * (thost96) - added github actions 
 * (thost96) - changed dockerfile for automated builds 
