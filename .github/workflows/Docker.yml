@@ -73,6 +73,7 @@ jobs:
   securitycheck:
      name: Scan for Vuls 
      runs-on: ubuntu-latest
+     needs: build
      strategy:
       fail-fast: false
       matrix:
@@ -88,3 +89,21 @@ jobs:
             image: ${{secrets.DOCKER_USERNAME }}/pimatic:${{ matrix.tags }}
             token: ${{ secrets.GITHUB_TOKEN }}
             issue: false
+
+  security:
+    name: Snyk - Security Check
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:        
+        tag: [latest, node-10, node-12, node-14]
+    steps:
+        - uses: actions/checkout@master
+        - name: Run Snyk to check for vulnerabilities
+          uses: snyk/actions/docker@master
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+            image: ${{secrets.DOCKER_USERNAME }}/pimatic:${{matrix.tag}}
+            args: --severity-threshold=high
