@@ -1,6 +1,9 @@
 # Docker images for PIMATIC
 Docker container to run [PIMATIC](https://pimatic.org).
 
+![Docker Image CI](https://github.com/thost96/docker-pimatic/workflows/Docker%20Image%20CI/badge.svg)
+![Lint Code Base](https://github.com/thost96/docker-pimatic/workflows/Lint%20Code%20Base/badge.svg)
+
 ## Docker RUN
 
     docker run \
@@ -10,7 +13,7 @@ Docker container to run [PIMATIC](https://pimatic.org).
       --port 80:80 \
       --volume /data:/pimatic-app \
       thost96/pimatic
-
+      
 ## Docker-Compose
     
     version: '2'
