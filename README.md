@@ -29,17 +29,17 @@ Docker container to run [PIMATIC](https://pimatic.org).
 ## Changelog
 
 ### 1.2.2 (27.08.2020)
-* (thost96) - added Snyk security check to github actions 
+* (thost96) - added Snyk security check to github actions
 
 ### 1.2.1 (20.06.2020)
-* (thost96) - added github actions 
-* (thost96) - changed dockerfile for automated builds 
+* (thost96) - added github actions
+* (thost96) - changed dockerfile for automated builds
 * (thost96) - added pimatic user to dockerfile and improved setting locales and timezone
 
 ### 1.2.0 (20.06.2020)
-* (thost96) - changed changelog to global version 
+* (thost96) - changed changelog to global version
 * (thost96) - added Dependabot v2 config file
-* (thost96) - removed deepsource from repo 
+* (thost96) - removed deepsource from repo
 * (thost96) - updated from node-10 to node-14
 * (thost96) - added docker-run and docker-compose to README.md
 
