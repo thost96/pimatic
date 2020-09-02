@@ -31,7 +31,7 @@ Docker container to run [PIMATIC](https://pimatic.org).
 
 ## Changelog
 
-## 1.2.3 (pending)
+### 1.2.3 (pending)
 * (thost96) - removed security checks from Docker Image CI Action into own Security Check Action
 
 ### 1.2.2 (27.08.2020)
