@@ -13,9 +13,9 @@ Docker container to run [PIMATIC](https://pimatic.org).
       --port 80:80 \
       --volume /data:/pimatic-app \
       thost96/pimatic
-      
+
 ## Docker-Compose
-    
+
     version: '2'
     services:
         pimatic:
