@@ -1,5 +1,4 @@
-name: Docker Image CI
-
+name: Security Checks
 on:
   push:
     paths-ignore: 
